@@ -4,7 +4,5 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class ProductRequest(
-    @Expose
-    @SerializedName("product")
-    val product: String,
+    val product: String
 )
