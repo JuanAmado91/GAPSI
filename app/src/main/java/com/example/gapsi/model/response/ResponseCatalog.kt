@@ -12,5 +12,5 @@ class ResponseCatalog (
     var page: Int,
     @Expose
     @SerializedName("items")
-    var items: List<DetailProduct>,
+    var items: ArrayList<DetailProduct>
 )

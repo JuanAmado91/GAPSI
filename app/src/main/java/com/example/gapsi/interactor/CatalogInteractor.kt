@@ -4,5 +4,5 @@ import com.example.gapsi.model.request.ProductRequest
 
 interface CatalogInteractor {
 
-    fun getCatalogInteractor(productRequest: ProductRequest, token: String)
+    fun getCatalogInteractor(respuesta: String, token: String)
 }

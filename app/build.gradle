@@ -53,4 +53,7 @@ dependencies {
     implementation "com.auth0:java-jwt:3.3.0"
     implementation "com.auth0:jwks-rsa:0.3.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 }

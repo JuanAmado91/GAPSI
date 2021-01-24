@@ -14,7 +14,9 @@ class CatalogInteractorImpl(consultProductPresenterImpl: ConsultProductPresenter
     private val presenter: ConsultProductPresenter? = consultProductPresenterImpl
 
     private fun onResponse(response: ResponseCatalog) {
-        Log.e("succes", response.page.toString())
+       // Log.e("succes", response.raw().request().url())
+        Log.e("succes", response.totalResults.toString())
+        Log.e("succes", response.items.size.toString())
         presenter!!.showResult(response)
     }
 
@@ -23,7 +25,7 @@ class CatalogInteractorImpl(consultProductPresenterImpl: ConsultProductPresenter
         presenter!!.invalidOperation()
     }
 
-    override fun getCatalogInteractor(productRequest: ProductRequest, token: String) {
+    override fun getCatalogInteractor(productRequest: String, token: String) {
         val compositeDisposable = CompositeDisposable()
         compositeDisposable.add(
             RetrofitClient.buildService2()

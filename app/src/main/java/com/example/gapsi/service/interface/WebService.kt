@@ -12,5 +12,5 @@ import retrofit2.http.Query
 interface WebService {
 
     @GET("search?")
-    fun getCatalog(@Query("query") request: ProductRequest, @Header("X-IBM-Client-Id") token: String): Observable<ResponseCatalog>
+    fun getCatalog(@Query("query") request: String, @Header("X-IBM-Client-Id") token: String): Observable<ResponseCatalog>
 }

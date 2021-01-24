@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 class DetailProduct (
     @Expose
-    @SerializedName("_id")
+    @SerializedName("id")
     var _id: String,
     @Expose
     @SerializedName("rating")
