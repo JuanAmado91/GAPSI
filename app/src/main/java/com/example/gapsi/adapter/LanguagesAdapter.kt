@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gapsi.R
 import com.example.gapsi.model.response.Languages
@@ -14,7 +13,7 @@ import com.example.gapsi.model.response.ResponseMoviesPopular
 import com.example.gapsi.model.response.Results
 import com.squareup.picasso.Picasso
 
-class CatalogAdapter : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
+class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.ViewHolder>() {
 
     var result: ArrayList<Results>  = ArrayList()
     lateinit var context: Context
@@ -28,7 +27,7 @@ class CatalogAdapter : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(
             layoutInflater.inflate(
-                R.layout.adapter_catalog,
+                R.layout.adapter_languages,
                 parent,
                 false
             )
@@ -51,11 +50,14 @@ class CatalogAdapter : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
         val publisher = view.findViewById(R.id.tvPublisher) as TextView
         val avatar = view.findViewById(R.id.ivAvatar) as ImageView
 
-        fun bind(items: Results, context: Context){
-            name.text = items.title
+        fun bind(items:Results, context: Context){
+            name.text = items.original_title
             realName.text = items.overview
             publisher.text = items.original_language
-            avatar.loadUrl("https://image.tmdb.org/t/p/original/"+items.poster_path)
+            if (items.poster_path.isNotEmpty()){
+                avatar.loadUrl("https://image.tmdb.org/t/p/original/"+items.poster_path)
+            }
+
 
         }
         fun ImageView.loadUrl(url: String) {

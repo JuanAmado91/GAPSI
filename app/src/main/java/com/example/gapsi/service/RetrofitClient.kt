@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    var BASER_URL_CATALG = "https://00672285.us-south.apigw.appdomain.cloud/demo-gapsi/"
+    var BASER_URL_CATALG = "https://api.themoviedb.org/3/"
 
     val client = OkHttpClient.Builder().apply {
 

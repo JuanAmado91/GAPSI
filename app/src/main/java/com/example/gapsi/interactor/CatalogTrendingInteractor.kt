@@ -1,6 +1,6 @@
 package com.example.gapsi.interactor
 
-interface CatalogInteractor {
+interface CatalogTrendingInteractor {
 
     fun getCatalogInteractor(token: String, page: Int)
 }
