@@ -19,8 +19,8 @@ class CatalogAdapter : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
     var result: ArrayList<Results>  = ArrayList()
     lateinit var context: Context
 
-    fun catalogAdapter(productosCatalog : ResponseMoviesPopular, context: Context){
-        this.result = productosCatalog.results
+    fun catalogAdapter(productosCatalog : ArrayList<Results>, context: Context){
+        this.result = productosCatalog
         this.context = context
     }
 

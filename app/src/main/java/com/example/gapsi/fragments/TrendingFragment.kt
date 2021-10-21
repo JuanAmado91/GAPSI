@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,23 +16,25 @@ import com.example.gapsi.adapter.LanguagesAdapter
 import com.example.gapsi.adapter.PaginationScrollListener
 import com.example.gapsi.model.response.ResponseMoviesPopular
 import com.example.gapsi.model.response.Results
-import com.example.gapsi.presenter.ConsultProductPresenter
-import com.example.gapsi.presenter.ConsultProductPresenterImpl
+import com.example.gapsi.presenter.ConsultTrendingPresenter
 import com.example.gapsi.presenter.ConsultTrendingPresenterImpl
 import com.example.gapsi.view.ConsultView
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
+import java.lang.reflect.Type
 
 
 class TrendingFragment: Fragment(), ConsultView {
 
-    var consultProductPresenter: ConsultProductPresenter? = null
+    private var consultProductPresenter: ConsultTrendingPresenter? = null
     var page = 1
-    lateinit var progressBar: ProgressBar
+    private lateinit var progressBar: ProgressBar
     private lateinit var text1: TextView
     lateinit var mRecyclerView : RecyclerView
     private val mAdapter : LanguagesAdapter = LanguagesAdapter()
     var isLastPage: Boolean = false
     var isLoading: Boolean = false
-    var dataResult : ArrayList<Results> = ArrayList()
+    private var dataResult : ArrayList<Results> = ArrayList()
 
     companion object {
         fun newInstance(): TrendingFragment = TrendingFragment()
@@ -41,8 +44,6 @@ class TrendingFragment: Fragment(), ConsultView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        android.util.Log.e("TrendingFragment", "llega a esta vista")
         return inflater.inflate(R.layout.fragment_trending, container, false)
     }
 
@@ -63,6 +64,50 @@ class TrendingFragment: Fragment(), ConsultView {
         dataResult = result.results
         progressBar.visibility = View.INVISIBLE
         text1.visibility = View.INVISIBLE
+        saveData()
+        loadData()
+    }
+    fun getMoreItems() {
+        progressBar.visibility = View.VISIBLE
+        if (page > 1){
+            consultProductPresenter!!.consult(page)
+        }
+        isLoading = false
+
+        mAdapter.addData(dataResult)
+    }
+
+    override fun operationError() {
+        Toast.makeText(context,"Offline", Toast.LENGTH_LONG).show()
+        progressBar.visibility = View.INVISIBLE
+        loadData()
+    }
+
+    private fun saveData() {
+        val sharedPreferences = context!!.getSharedPreferences("shared preferences",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(dataResult)
+        editor.putString("courses", json)
+        editor.apply()
+        Toast.makeText(context, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadData() {
+        val sharedPreferences = context!!.getSharedPreferences("shared preferences",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val gson = Gson()
+        val json = sharedPreferences.getString("courses", null)
+        val type: Type = object : TypeToken<ArrayList<Results>>() {}.type
+
+        dataResult = gson.fromJson<Any>(json, type) as ArrayList<Results>
+        viewMoviesAdapter(dataResult)
+    }
+
+    private fun viewMoviesAdapter(result: ArrayList<Results> ){
         mAdapter.catalogAdapter(result, context!!)
         mRecyclerView.adapter = mAdapter
 
@@ -82,19 +127,5 @@ class TrendingFragment: Fragment(), ConsultView {
                 getMoreItems()
             }
         })
-
-    }
-    fun getMoreItems() {
-        progressBar.visibility = View.VISIBLE
-        if (page > 1){
-            consultProductPresenter!!.consult(page)
-        }
-        isLoading = false
-
-        mAdapter.addData(dataResult)
-    }
-
-    override fun operationError() {
-
     }
 }

@@ -18,8 +18,8 @@ class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.ViewHolder>() {
     var result: ArrayList<Results>  = ArrayList()
     lateinit var context: Context
 
-    fun catalogAdapter(productosCatalog : ResponseMoviesPopular, context: Context){
-        this.result = productosCatalog.results
+    fun catalogAdapter(productosCatalog : ArrayList<Results> , context: Context){
+        this.result = productosCatalog
         this.context = context
     }
 
@@ -54,7 +54,7 @@ class LanguagesAdapter: RecyclerView.Adapter<LanguagesAdapter.ViewHolder>() {
             name.text = items.original_title
             realName.text = items.overview
             publisher.text = items.original_language
-            if (items.poster_path.isNotEmpty()){
+            if (items.poster_path!!.isNotEmpty()){
                 avatar.loadUrl("https://image.tmdb.org/t/p/original/"+items.poster_path)
             }
 

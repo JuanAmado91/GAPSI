@@ -8,15 +8,15 @@ class MyApplicationSubclass : Application(){
 
     override fun onCreate() {
         super.onCreate()
-//        Realm.init(this)
-//        val configuration = RealmConfiguration.Builder()
-//            .name("movies.db")
-//            .deleteRealmIfMigrationNeeded()
-//            .schemaVersion(0)
-//            .allowWritesOnUiThread(true)
-//            .allowQueriesOnUiThread(true)
-//            .build()
-//
-//        Realm.setDefaultConfiguration(configuration)
+        Realm.init(this)
+        val configuration = RealmConfiguration.Builder()
+            .name("movies.db")
+            .deleteRealmIfMigrationNeeded()
+            .schemaVersion(0)
+            .allowWritesOnUiThread(true)
+            .allowQueriesOnUiThread(true)
+            .build()
+
+        Realm.setDefaultConfiguration(configuration)
     }
 }

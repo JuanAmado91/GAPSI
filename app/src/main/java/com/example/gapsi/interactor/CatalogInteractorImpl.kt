@@ -1,22 +1,12 @@
 package com.example.gapsi.interactor
 
 import android.util.Log
-import com.example.gapsi.model.request.ProductRequest
-import com.example.gapsi.model.response.Languages
-import com.example.gapsi.model.response.ResponseCatalog
 import com.example.gapsi.model.response.ResponseMoviesPopular
 import com.example.gapsi.presenter.ConsultProductPresenter
 import com.example.gapsi.service.RetrofitClient
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.annotations.NotNull
 
 class CatalogInteractorImpl(consultProductPresenterImpl: ConsultProductPresenter) : CatalogInteractor {
 

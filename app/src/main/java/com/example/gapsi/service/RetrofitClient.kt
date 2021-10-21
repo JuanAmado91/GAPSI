@@ -2,7 +2,6 @@ package com.example.gapsi.service
 
 import com.example.gapsi.service.`interface`.WebService
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,22 +11,24 @@ object RetrofitClient {
 
     var BASER_URL_CATALG = "https://api.themoviedb.org/3/"
 
-    val client = OkHttpClient.Builder().apply {
+//    private val client = OkHttpClient.Builder().apply {
+//
+//        addInterceptor(HttpLoggingInterceptor(
+//            HttpLoggingInterceptor.Logger { message ->
+//                println("LOG-APP: $message")
+//            }).apply {
+//            level= HttpLoggingInterceptor.Level.BODY
+//        })
+//
+//        addNetworkInterceptor(HttpLoggingInterceptor(
+//            HttpLoggingInterceptor.Logger { message ->
+//                println("LOG-NET: $message")
+//            }).apply {
+//            level= HttpLoggingInterceptor.Level.BODY
+//        })
+//    }.build()
 
-        addInterceptor(HttpLoggingInterceptor(
-            HttpLoggingInterceptor.Logger { message ->
-                println("LOG-APP: $message")
-            }).apply {
-            level= HttpLoggingInterceptor.Level.BODY
-        })
 
-        addNetworkInterceptor(HttpLoggingInterceptor(
-            HttpLoggingInterceptor.Logger { message ->
-                println("LOG-NET: $message")
-            }).apply {
-            level= HttpLoggingInterceptor.Level.BODY
-        })
-    }.build()
 
     private val clientToken = OkHttpClient
         .Builder()
@@ -38,7 +39,7 @@ object RetrofitClient {
         .baseUrl(BASER_URL_CATALG)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
+        //.client(clientToken)
         .build()
         .create(WebService::class.java)
 
